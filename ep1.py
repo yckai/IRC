@@ -42,8 +42,10 @@ while 1:
         nbtmp = re.findall(r'[0-9]+', str(text))
         nb1=nbtmp[0]
         nb2=nbtmp[1]
-        nb = float(0)
-        nb= sqrt(int(nb1)*int(nb2))
+        nb= sqrt(float(nb1))
+        print(nb)
+        nb=float(nb)*float(nb2)
+        print(nb)
         nb = round(nb, 2)
         msg= "PRIVMSG candy !ep1 -rep " + str(nb)+" \n"
         irc.send(msg.encode("Utf8"))
