@@ -1,7 +1,6 @@
 import socket, sys, re
 from math import *
 import base64
-import codecs
 
 server = "irc.root-me.org"  # settings
 channel = "#root-me_challenge"
@@ -33,7 +32,7 @@ irc.send(msg.encode("Utf8"))  # join the chan
 text = irc.recv(4096)  # receive the text
 print(text)
 
-msg = "PRIVMSG candy !ep3 \n"
+msg = "PRIVMSG candy !ep2 \n"
 irc.send(msg.encode("Utf8"))  # auth
 
 while 1:
@@ -42,9 +41,10 @@ while 1:
     PRIVMSG = re.search("PRIVMSG", str(text))
     if PRIVMSG is not None :
         a = str(text).split(":")
-        b = a[2].replace("\\r\\n'", "")
-        print(b)
-        b=codecs.decode(b, 'rot_13')
+        b = str(a[2]).replace("\\r\\n'", "")
         print(str(b))
-        msg= "PRIVMSG candy !ep3 -rep " + str(b) +" \n"
+        b=base64.b64decode(str(b))
+        b=b.decode("utf-8")
+        print(str(b))
+        msg= "PRIVMSG candy !ep2 -rep " + str(b) +" \n"
         irc.send(msg.encode("Utf8"))
